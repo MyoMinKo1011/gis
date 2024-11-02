@@ -5,15 +5,18 @@ import folium
 from streamlit_folium import folium_static
 import matplotlib.pyplot as plt
 from geopy.distance import geodesic
+import requests
 
 # Define the CSV file path
-DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
+# DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
 
 
 def load_data():
     """Load data from the CSV file into a DataFrame."""
-    if os.path.exists(DATA_FILE):
-        df = pd.read_csv(DATA_FILE)
+    url = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
+    response = requests.get(url)
+    if response.status_code == 200:
+        df = pd.read_csv(StringIO(response.text))
         return df
     else:
         return pd.DataFrame(columns=["name", "lat", "lon", "type", "details"])
