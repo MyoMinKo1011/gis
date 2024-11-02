@@ -1,14 +1,16 @@
 import streamlit as st
 import pandas as pd
 import os
+import requests
 
 # Define the CSV file path
-DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
+# DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
 
 def load_data():
     """Load data from the CSV file into session state."""
-    if os.path.exists(DATA_FILE):
-        df = pd.read_csv(DATA_FILE)
+    url = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
+    if response.status_code == 200:
+        df = pd.read_csv(StringIO(response.text))
         st.session_state['locations'] = df.to_dict(orient='records')
     else:
         st.session_state['locations'] = []
