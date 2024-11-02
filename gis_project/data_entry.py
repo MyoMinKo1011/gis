@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # Define the CSV file path
-DATA_FILE = 'locations_data.csv'
+DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
 
 def load_data():
     """Load data from the CSV file into session state."""
