@@ -10,6 +10,7 @@ from io import StringIO
 def load_data():
     """Load data from the CSV file into session state."""
     url = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
+    response = requests.get(url)
     if response.status_code == 200:
         df = pd.read_csv(StringIO(response.text))
         st.session_state['locations'] = df.to_dict(orient='records')
