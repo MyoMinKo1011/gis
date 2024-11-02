@@ -17,11 +17,41 @@ def load_data():
     else:
         st.session_state['locations'] = []
 
+# def save_data():
+#     """Save the current session state locations data to the CSV file."""
+#     if 'locations' in st.session_state:
+#         df = pd.DataFrame(st.session_state['locations'])
+#         df.to_csv(DATA_FILE, index=False)
+GITHUB_API_URL = 'https://api.github.com/repos/MyoMinKo1011/gis/gis_project/locations_data.csv'
 def save_data():
-    """Save the current session state locations data to the CSV file."""
+    """Save the current session state locations data to the GitHub file."""
     if 'locations' in st.session_state:
         df = pd.DataFrame(st.session_state['locations'])
-        df.to_csv(DATA_FILE, index=False)
+        csv_data = df.to_csv(index=False)
+        # Get the SHA of the existing file for the commit
+        response = requests.get(GITHUB_API_URL, headers={'Authorization': f'token {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}'})
+        if response.status_code == 200:
+            sha = response.json()['sha']
+            # Prepare the data payload
+            payload = {
+                "message": "Update locations_data.csv",
+                "content": csv_data.encode('utf-8').decode('utf-8'),
+                "sha": sha
+            }
+            # Update the file
+            response = requests.put(
+                GITHUB_API_URL,
+                headers={'Authorization': f'token {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}'},
+                data=json.dumps(payload)
+            )
+            if response.status_code == 200:
+                st.success("Data saved successfully to GitHub.")
+            else:
+                st.error(f"Failed to save data to GitHub: {response.json().get('message', 'Unknown error')}")
+        else:
+            st.error("Failed to retrieve file SHA for updating.")
+    else:
+        st.warning("No data to save.")
 
 def show():
     st.title("Data Entry")
