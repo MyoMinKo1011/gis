@@ -6,6 +6,7 @@ from streamlit_folium import folium_static
 import matplotlib.pyplot as plt
 from geopy.distance import geodesic
 import requests
+from io import StringIO
 
 # Define the CSV file path
 # DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
