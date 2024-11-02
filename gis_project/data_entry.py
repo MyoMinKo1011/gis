@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import requests
+from io import StringIO
 
 # Define the CSV file path
 # DATA_FILE = 'https://raw.githubusercontent.com/MyoMinKo1011/gis/refs/heads/main/gis_project/locations_data.csv'
