@@ -23,7 +23,7 @@ def load_data():
         return pd.DataFrame(columns=["name", "lat", "lon", "type", "details"])
 
 def show_dashboard():
-    st.title("Archaeological Database System with GIS Integrations")
+    st.title("Archaeological Database Management System with GIS Integrations")
     st.markdown(
         """
         <style>
